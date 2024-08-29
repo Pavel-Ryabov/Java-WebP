@@ -1,21 +1,22 @@
 package xyz.pary.webp.decoder;
 
-import java.io.ByteArrayOutputStream;
-import java.io.InputStream;
+import xyz.pary.webp.WebPFormat;
+import xyz.pary.webp.Dimensions;
+import xyz.pary.webp.WebPInfo;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
-import xyz.pary.webp.utils.Utils;
+import static xyz.pary.webp.TestImages.BLACK_10X10;
+import static xyz.pary.webp.TestImages.BLACK_10X10_LOSSY;
+import static xyz.pary.webp.TestImages.BLACK_10X10_WITH_ALPHA50;
+import static xyz.pary.webp.TestImages.RAINBOW_8X8;
+import static xyz.pary.webp.TestImages.RAINBOW_COLORS;
+import static xyz.pary.webp.TestImages.WHITE_10X10;
+import static xyz.pary.webp.TestImages.getTestFile;
 
 public class WebPDecoderTest {
-
-    private static final String BLACK_10X10 = "/black_10x10.webp";
-    private static final String WHITE_10X10 = "/white_10x10.webp";
-    private static final String BLACK_10X10_WITH_ALPHA50 = "/black_10x10_alpha50.webp";
-    private static final String BLACK_10X10_LOSSY = "/black_10x10_lossy.webp";
-    private static final String RAINBOW_8X8 = "/rainbow_8x8.webp";
 
     private static WebPDecoder decoder;
 
@@ -85,24 +86,7 @@ public class WebPDecoderTest {
     @Test
     public void testRainbow() throws Exception {
         byte[] argb = decoder.decodeARGB(getTestFile(RAINBOW_8X8));
-        byte[][] colorLines = new byte[][]{
-            {(byte) 255, (byte) 255, (byte) 0, (byte) 0},
-            {(byte) 255, (byte) 255, (byte) 165, (byte) 0},
-            {(byte) 255, (byte) 255, (byte) 255, (byte) 0},
-            {(byte) 255, (byte) 0, (byte) 255, (byte) 0},
-            {(byte) 255, (byte) 0, (byte) 191, (byte) 255},
-            {(byte) 255, (byte) 0, (byte) 0, (byte) 255},
-            {(byte) 255, (byte) 105, (byte) 0, (byte) 198},
-            {(byte) 0, (byte) 0, (byte) 0, (byte) 0}
-        };
-        checkColorByLines(argb, colorLines, 8);
-    }
-
-    private byte[] getTestFile(String name) throws Exception {
-        try (InputStream is = WebPDecoderTest.class.getResourceAsStream(name); ByteArrayOutputStream baos = new ByteArrayOutputStream()) {
-            Utils.transfer(is, baos);
-            return baos.toByteArray();
-        }
+        checkColorByLines(argb, RAINBOW_COLORS, 8);
     }
 
     private void checkSingleColor(byte[] data, byte[] color) {

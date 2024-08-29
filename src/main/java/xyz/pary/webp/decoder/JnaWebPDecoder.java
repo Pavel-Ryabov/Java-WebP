@@ -1,5 +1,7 @@
 package xyz.pary.webp.decoder;
 
+import xyz.pary.webp.Dimensions;
+import xyz.pary.webp.WebPInfo;
 import com.sun.jna.Pointer;
 import com.sun.jna.ptr.IntByReference;
 import xyz.pary.webp.decoder.WebPDecoderLibrary.WebPBitstreamFeatures;

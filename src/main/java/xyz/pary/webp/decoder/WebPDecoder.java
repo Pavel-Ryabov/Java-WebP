@@ -1,5 +1,8 @@
 package xyz.pary.webp.decoder;
 
+import xyz.pary.webp.Dimensions;
+import xyz.pary.webp.WebPInfo;
+
 public interface WebPDecoder {
 
     Dimensions getDimensions(byte[] data) throws WebPDecoderException;
