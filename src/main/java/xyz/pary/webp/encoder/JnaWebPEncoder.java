@@ -4,7 +4,7 @@ import com.sun.jna.Pointer;
 import com.sun.jna.ptr.PointerByReference;
 import xyz.pary.webp.Dimensions;
 
-public class JnaWebPEncoder implements WebPEncoder {
+class JnaWebPEncoder implements WebPEncoder {
 
     private final WebPEncoderLibrary encoder = WebPEncoderLibrary.INSTANCE;
 

@@ -3,7 +3,7 @@ package xyz.pary.webp.imageio;
 import javax.imageio.stream.ImageInputStream;
 import javax.imageio.stream.ImageOutputStream;
 
-public class SpiSettings {
+class SpiSettings {
 
     public static final String VENDOR = "xyz.pary.webp";
     public static final String VERSION = "0.1";

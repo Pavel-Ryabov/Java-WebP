@@ -3,7 +3,7 @@ package xyz.pary.webp.imageio;
 import java.awt.image.ColorModel;
 import java.awt.image.Raster;
 
-public class PixelUtils {
+class PixelUtils {
 
     public static int[] toIntPixels(byte[] pixels, boolean withAlpha) {
         int bpp = withAlpha ? 4 : 3;

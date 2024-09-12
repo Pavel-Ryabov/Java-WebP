@@ -2,7 +2,7 @@ package xyz.pary.webp.decoder;
 
 import xyz.pary.webp.jna.JnaEnum;
 
-public enum WebPCspMode implements JnaEnum<WebPCspMode> {
+enum WebPCspMode implements JnaEnum<WebPCspMode> {
     MODE_RGB(0),
     MODE_RGBA(1),
     MODE_BGR(2),
