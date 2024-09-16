@@ -2,11 +2,13 @@ package xyz.pary.webp.imageio;
 
 import java.awt.Image;
 import java.awt.image.BufferedImage;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import javax.imageio.ImageIO;
 import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import org.junit.jupiter.api.Test;
 import static xyz.pary.webp.TestImages.RAINBOW_8X8;
 import static xyz.pary.webp.TestImages.WHITE_10X10;
@@ -62,6 +64,12 @@ public class ImageReaderTest {
         assertEquals(8, subimage.getHeight());
         int[] pixels = subimage.getData().getPixels(0, 0, 4, 8, new int[4 * 8 * 4]);
         assertArrayEquals(convertByteArrayToIntArray(getRainbowRGBA(), 4, 8, 8, 4, 8), pixels);
+    }
+
+    @Test
+    @SuppressWarnings("ThrowableResultIgnored")
+    public void testBadData() {
+        assertThrows(IOException.class, () -> ImageIO.read(Utils.getResourceAsStream("baddata.webp")));
     }
 
     private int[] convertByteArrayToIntArray(byte[] byteArray) {

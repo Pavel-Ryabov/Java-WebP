@@ -12,6 +12,7 @@ import javax.imageio.metadata.IIOMetadata;
 import javax.imageio.spi.ImageWriterSpi;
 import javax.imageio.stream.ImageOutputStream;
 import xyz.pary.webp.encoder.WebPEncoder;
+import xyz.pary.webp.encoder.WebPEncoderException;
 import xyz.pary.webp.encoder.WebPEncoderFactory;
 
 public class WebPImageWriter extends ImageWriter {
@@ -109,18 +110,22 @@ public class WebPImageWriter extends ImageWriter {
         }
 
         byte[] data;
-        if (cm.hasAlpha()) {
-            if (param.isCompressionLossless()) {
-                data = encoder.encodeLosslessRGBA(pixels, w, h);
+        try {
+            if (cm.hasAlpha()) {
+                if (param.isCompressionLossless()) {
+                    data = encoder.encodeLosslessRGBA(pixels, w, h);
+                } else {
+                    data = encoder.encodeRGBA(pixels, w, h, param.getCompressionQuality() * 100);
+                }
             } else {
-                data = encoder.encodeRGBA(pixels, w, h, param.getCompressionQuality() * 100);
+                if (param.isCompressionLossless()) {
+                    data = encoder.encodeLosslessRGB(pixels, w, h);
+                } else {
+                    data = encoder.encodeRGB(pixels, w, h, param.getCompressionQuality() * 100);
+                }
             }
-        } else {
-            if (param.isCompressionLossless()) {
-                data = encoder.encodeLosslessRGB(pixels, w, h);
-            } else {
-                data = encoder.encodeRGB(pixels, w, h, param.getCompressionQuality() * 100);
-            }
+        } catch (WebPEncoderException e) {
+            throw new IOException(e);
         }
 
         if (abortRequested()) {

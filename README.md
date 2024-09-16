@@ -11,7 +11,7 @@ Java [JNA](https://github.com/java-native-access/jna) wrapper for libwebp.
 <dependency>
   <groupId>xyz.pary</groupId>
   <artifactId>webp</artifactId>
-  <version>0.1</version>
+  <version>0.1.1</version>
 </dependency>
 ```
 

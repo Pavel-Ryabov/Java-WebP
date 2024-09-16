@@ -17,6 +17,7 @@ import javax.imageio.spi.ImageReaderSpi;
 import javax.imageio.stream.ImageInputStream;
 import xyz.pary.webp.WebPInfo;
 import xyz.pary.webp.decoder.WebPDecoder;
+import xyz.pary.webp.decoder.WebPDecoderException;
 import xyz.pary.webp.decoder.WebPDecoderFactory;
 
 public class WebPImageReader extends ImageReader {
@@ -146,10 +147,14 @@ public class WebPImageReader extends ImageReader {
             return;
         }
         readInfo();
-        if (info.isHasAlpha()) {
-            pixels = PixelUtils.toIntPixels(decoder.decodeARGB(data), true);
-        } else {
-            pixels = PixelUtils.toIntPixels(decoder.decodeRGB(data), false);
+        try {
+            if (info.isHasAlpha()) {
+                pixels = PixelUtils.toIntPixels(decoder.decodeARGB(data), true);
+            } else {
+                pixels = PixelUtils.toIntPixels(decoder.decodeRGB(data), false);
+            }
+        } catch (WebPDecoderException e) {
+            throw new IOException(e);
         }
         data = null;
     }
@@ -163,7 +168,11 @@ public class WebPImageReader extends ImageReader {
         } catch (IOException e) {
             throw new IOException("Image reading error");
         }
-        info = decoder.getInfo(data);
+        try {
+            info = decoder.getInfo(data);
+        } catch (WebPDecoderException e) {
+            throw new IOException(e);
+        }
     }
 
     private void readData() throws IOException {

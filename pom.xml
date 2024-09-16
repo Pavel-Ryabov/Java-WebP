@@ -3,11 +3,11 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>xyz.pary</groupId>
     <artifactId>webp</artifactId>
-    <version>0.1</version>
+    <version>0.1.1</version>
     <packaging>jar</packaging>
     
     <name>Java WebP</name>
-    <description>Java wrapper for libweb</description>
+    <description>Java wrapper for libwebp</description>
     <url>https://github.com/pavel-ryabov/java-webp</url>
 
     <licenses>
